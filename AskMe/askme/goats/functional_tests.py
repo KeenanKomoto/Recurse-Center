@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -11,16 +13,31 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_startretrieve(self):
         # Person goes to online app.
-        browser.get('http://localhost:8000')
+        self.browser.get('http://localhost:8000/user_accounts/signup')
         
-        self.asserIn('askme', self.browser.title)
-        self.fail('Finish the test!')
         
         # Person notices title and header mention something
+        self.assertIn('', self.browser.title)
+        header_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Sign up', header_text)
         
         # Person tries to signup
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Sign in please'
+        )
         
         # Person successfully signs up and is brought to their homepage
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: Buy peacock feathers' for row in rows)
+        )
+
         
         # Person browses the different surveys available
         
@@ -29,6 +46,7 @@ class NewVisitorTest(unittest.TestCase):
         # Person successfully takes a new survey and gets to see their results compared to other peoples
         
         # Person logs out successfully 
+        self.fail('Finish the test!')
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')

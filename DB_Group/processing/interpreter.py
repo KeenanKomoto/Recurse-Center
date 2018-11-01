@@ -15,7 +15,7 @@ POKE_COMMANDS = {'help': 'helpPlease',
                 }
 SQL_STATEMENTS = {'select': 'select',
                   'from': 'fromTable'
-                  }
+                 }
 
 class Interpret:
     def __init__(self, user_input):
@@ -34,8 +34,6 @@ class Interpret:
         SQL = SQLStatements()
         split_statement = self.statement.split()
         for word in split_statement:
-
-            """PARSE SQL STATEMENT HERE"""
 
             if SQL_STATEMENTS.get(word):
                 result = getattr(SQL, SQL_STATEMENTS.get(word))

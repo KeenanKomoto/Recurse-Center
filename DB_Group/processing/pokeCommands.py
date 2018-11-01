@@ -4,6 +4,7 @@
 ### Run command that is interpreted from interpreter ###
 ########################################################
 from sys import exit
+# TODO: ELIMINATE CLASSES
 
 class Commands:
     def __init__(self):
@@ -36,5 +37,3 @@ class SQLStatements:
 
     def fromTable(self):
         return "FROM THIS TABLE"
-
-    
